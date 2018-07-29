@@ -12,6 +12,11 @@ import FluentSQL
 
 public extension QueryBuilder where Result: Model, Result.Database == Database {
     /// Applies filter criteria over a keypath using criteria configured in a request query params.
+    ///     
+    ///     If your request user is /users?username=ew:gmail.com
+    ///     `\User.query(on: req).filter(\User.username, at: email, on: req)`
+    ///     then, the previous code will extract the filter config for the key `email` of your url params
+    ///     and will build a query filter for the \User.username keypath where their values ends with `gmail.com`
     ///
     /// - Parameters:
     ///   - keyPath: the model keypath
