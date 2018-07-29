@@ -100,6 +100,7 @@ final class EnvironmentTests: XCTestCase {
         """
         # example comment
 
+        SERVICE_EXT_STRING_QUOTED="Hello Vapor Quoted"
         SERVICE_EXT_STRING=Hello Vapor
         SERVICE_EXT_INT=107
 
@@ -110,7 +111,10 @@ final class EnvironmentTests: XCTestCase {
 
         Environment.dotenv(filename: "test.env")
 
-        let string: String? = Environment.get("SERVICE_EXT_STRING")
+        var string: String? = Environment.get("SERVICE_EXT_STRING_QUOTED")
+        XCTAssertEqual(string, "Hello Vapor Quoted")
+
+        string = Environment.get("SERVICE_EXT_STRING")
         XCTAssertEqual(string, "Hello Vapor")
 
         let int: Int? = Environment.get("SERVICE_EXT_INT")
