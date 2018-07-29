@@ -11,11 +11,11 @@ import Async
 // MARK: - Methods
 
 public extension Future where T: Equatable {
-    /// AsyncExtensions: Check if the current value is equal to the passed value.
+    /// Check if the current value is equal to the passed value.
     ///
-    ///    Future(5).equal(to: 5) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.equal(to: 5) // true
     ///
-    ///    Future("some string").equal(to: "other string") -> Future(false)
+    ///    Future.map(on: worker) { "some string" }.equal(to: "other string") // false
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -25,11 +25,11 @@ public extension Future where T: Equatable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is equal to the passed value.
+    /// Check if the current value is equal to the passed value
     ///
-    ///    Future(5).equal(to: 5, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.equal(to: 5, or: CustomError()) // true
     ///
-    ///    Future(5).equal(to: 3, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.equal(to: 3, or: CustomError()) // throws CustomError
     ///
     /// - Parameters:
     ///   - value: The value to compare.
@@ -42,11 +42,11 @@ public extension Future where T: Equatable {
         }.true(or: error)
     }
 
-    /// AsyncExtensions: Check if the current value is different to the passed value.
+    /// Check if the current value is different to the passed value
     ///
-    ///    Future(5).notEqual(to: 5) -> Future(false)
+    ///    Future.map(on: worker) { 5 }.notEqual(to: 5) // false
     ///
-    ///    Future("some string").notEqual(to: "other string") -> Future(true)
+    ///    Future.map(on: worker) { "some string" }.notEqual(to: "other string") // true
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -56,11 +56,11 @@ public extension Future where T: Equatable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is different to the passed value.
+    /// Check if the current value is different to the passed value.
     ///
-    ///    Future(5).notEqual(to: 5, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.notEqual(to: 5, or: CustomError()) // throws CustomError
     ///
-    ///    Future(5).notEqual(to: 3, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.notEqual(to: 3, or: CustomError()) // true
     ///
     /// - Parameters:
     ///   - value: The value to compare.

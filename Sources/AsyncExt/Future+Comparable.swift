@@ -11,11 +11,11 @@ import Async
 // MARK: - Methods
 
 public extension Future where T: Comparable {
-    /// AsyncExtensions: Check if the current value is greater than the passed value.
+    /// Check if the current value is greater than the passed value.
     ///
-    ///    Future(5).greater(than: 4) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.greater(than: 4) // true
     ///
-    ///    Future(5).greater(than: 5) -> Future(false)
+    ///    Future.map(on: worker) { 5 }.greater(than: 5) // false
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -25,11 +25,11 @@ public extension Future where T: Comparable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is greater than the passed value.
+    /// Check if the current value is greater than the passed value.
     ///
-    ///    Future(5).greater(than: 4, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.greater(than: 4, or: CustomError()) // true
     ///
-    ///    Future(5).equal(than: 5, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.greater(than: 5, or: CustomError()) // throws CustomError
     ///
     /// - Parameters:
     ///   - value: The value to compare.
@@ -40,11 +40,11 @@ public extension Future where T: Comparable {
         return try greater(than: value).true(or: error)
     }
 
-    /// AsyncExtensions: Check if the current value is greater or equal to the passed value.
+    /// Check if the current value is greater or equal to the passed value.
     ///
-    ///    Future(5).greaterOrEqual(to: 4) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.greaterOrEqual(to: 4) // true
     ///
-    ///    Future(5).greaterOrEqual(to: 5) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.greaterOrEqual(to: 5) // true
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -54,11 +54,11 @@ public extension Future where T: Comparable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is greater or equal to the passed value.
+    /// Check if the current value is greater or equal to the passed value.
     ///
-    ///    Future(5).greaterOrEqual(to: 5, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.greaterOrEqual(to: 5, or: CustomError()) // true
     ///
-    ///    Future(5).greaterOrEqual(to: 7, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.greaterOrEqual(to: 7, or: CustomError()) // throws CustomError
     ///
     /// - Parameters:
     ///   - value: The value to compare.
@@ -69,11 +69,11 @@ public extension Future where T: Comparable {
         return try greaterOrEqual(to: value).true(or: error)
     }
 
-    /// AsyncExtensions: Check if the current value is less than the passed value.
+    /// Check if the current value is less than the passed value.
     ///
-    ///    Future(5).less(than: 10) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.less(than: 10) // true
     ///
-    ///    Future(5).less(than: 5) -> Future(false)
+    ///    Future.map(on: worker) { 5 }.less(than: 5) // false
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -83,11 +83,11 @@ public extension Future where T: Comparable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is less than the passed value.
+    /// Check if the current value is less than the passed value.
     ///
-    ///    Future(5).less(than: 10, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.less(than: 10, or: CustomError()) // true
     ///
-    ///    Future(5).less(than: 5, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.less(than: 5, or: CustomError()) // throws CustomError
     ///
     /// - Parameters:
     ///   - value: The value to compare.
@@ -98,11 +98,11 @@ public extension Future where T: Comparable {
         return try less(than: value).true(or: error)
     }
 
-    /// AsyncExtensions: Check if the current value is less or equal to the passed value.
+    /// Check if the current value is less or equal to the passed value.
     ///
-    ///    Future(5).lessOrEqual(to: 10) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.lessOrEqual(to: 10) // true
     ///
-    ///    Future(5).lessOrEqual(to: 5) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.lessOrEqual(to: 5) // true
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
@@ -112,11 +112,11 @@ public extension Future where T: Comparable {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is less or equal to the passed value.
+    /// Check if the current value is less or equal to the passed value.
     ///
-    ///    Future(5).lessOrEqual(to: 10, or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { 5 }.lessOrEqual(to: 10, or: CustomError()) // true
     ///
-    ///    Future(5).lessOrEqual(to: 7, or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { 5 }.lessOrEqual(to: 7, or: CustomError()) // throws CustomError
     ///
     /// - Parameters:
     ///   - value: The value to compare.

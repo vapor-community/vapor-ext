@@ -11,14 +11,13 @@ import Async
 // MARK: - Methods
 
 public extension Future where T == Bool {
-    /// AsyncExtensions: Check if the current value is `true`.
+    /// Check if the current value is `true`.
     ///
-    ///    Future(true).true(or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { true }.true(or: CustomError()) // true
     ///
-    ///    Future(false).true(or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { false }.true(or: CustomError()) // Throws CustomError
     ///
-    /// - Parameters:
-    ///   - error: The error to be thrown.
+    /// - Parameter error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error in the opposite case.
     public func `true`(or error: Error) throws -> Future<Bool> {
@@ -30,14 +29,13 @@ public extension Future where T == Bool {
         }
     }
 
-    /// AsyncExtensions: Check if the current value is `false`.
+    /// Check if the current value is `false`.
     ///
-    ///    Future(false).false(or: CustomError()) -> Future(true)
+    ///    Future.map(on: worker) { false }.false(or: CustomError()) // true
     ///
-    ///    Future(true).false(or: CustomError()) -> Throws CustomError
+    ///    Future.map(on: worker) { true }.false(or: CustomError()) // Throws CustomError
     ///
-    /// - Parameters:
-    ///   - error: The error to be thrown.
+    /// - Parameter error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error in the opposite case.
     public func `false`(or error: Error) throws -> Future<Bool> {
