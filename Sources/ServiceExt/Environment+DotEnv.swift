@@ -6,6 +6,7 @@
 //  Copyright © 2018 Vapor Community. All rights reserved.
 //
 
+import Foundation
 import Service
 
 #if os(Linux)
@@ -21,7 +22,7 @@ public extension Environment {
             return
         }
 
-        contents.enumerateLines { (line, stop) -> Void in
+        contents.enumerateLines { (line, _) -> Void in
             // ignore comments
             if line.starts(with: "#") {
                 return
