@@ -9,7 +9,7 @@
 import XCTest
 @testable import VaporExt
 
-final class VaporExtTests: XCTestCase {
+final class StubTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

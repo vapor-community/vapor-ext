@@ -8,8 +8,12 @@
 
 import XCTest
 
-import VaporExtTests
+@testable import AsyncExtTests
+@testable import VaporExtTests
 
 var tests = [XCTestCaseEntry]()
+
+tests += AsyncExtTests.allTests()
 tests += VaporExtTests.allTests()
+
 XCTMain(tests)
