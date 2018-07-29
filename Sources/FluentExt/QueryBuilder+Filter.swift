@@ -11,6 +11,14 @@ import Fluent
 import FluentSQL
 
 public extension QueryBuilder where Result: Model, Result.Database == Database {
+    /// Applies filter criteria over a keypath using criteria configured in a request query params.
+    ///
+    /// - Parameters:
+    ///   - keyPath: the model keypath
+    ///   - parameter: the parameter name in filter config from request url params.
+    ///   - req: the request.
+    /// - Returns: Self
+    /// - Throws: FluentError
     public func filter<T>(_ keyPath: KeyPath<Result, T>, at parameter: String, on req: Request) throws -> Self where T: Encodable & Decodable {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
@@ -28,7 +36,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
             value = splited[0]
         } else {
             guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
-                throw FilterableError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
             }
             method = mth
             value = splited[1]
@@ -63,12 +71,20 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
         case (.notIn, .multiple(let value)): // Not In
             return self.filter(keyPath !~ value)
         default:
-            throw FilterableError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+            throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
         }
     }
 }
 
 public extension QueryBuilder where Result: Model, Result.Database == Database, Result.Database.QueryFilterMethod: SQLBinaryOperator {
+    /// Applies filter criteria over a keypath using criteria configured in a request query params.
+    ///
+    /// - Parameters:
+    ///   - keyPath: the model keypath
+    ///   - parameter: the parameter name in filter config from request url params.
+    ///   - req: the request.
+    /// - Returns: Self
+    /// - Throws: FluentError
     public func filter(_ keyPath: KeyPath<Result, String>, at parameter: String, on req: Request) throws -> Self {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
@@ -86,7 +102,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
             value = splited[0]
         } else {
             guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
-                throw FilterableError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
             }
             method = mth
             value = splited[1]
@@ -134,7 +150,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
         case (.notIn, .multiple(let value)): // Not In
             return self.filter(keyPath !~ value)
         default:
-            throw FilterableError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+            throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
         }
     }
 }
