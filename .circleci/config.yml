@@ -10,7 +10,7 @@ jobs:
       - run: swift build
       - run: swift package generate-xcodeproj
       - run: xcodebuild -scheme VaporExt-Package -enableCodeCoverage YES test
-      - run: bash <(curl -s https://codecov.io/bash)
+      - run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
   macos-release:
     macos:
