@@ -70,16 +70,27 @@ final class EnvironmentTests: XCTestCase {
     }
 
     func testFallback() {
-        let fallbackInt = Environment.get("X_____", 9999)
+        setenv("VAPOR_EXT_VAR_FALLBACK", "1", 1)
+
+        // Int
+        var fallbackInt = Environment.get("VAPOR_EXT_VAR_FALLBACK", 9999)
+        XCTAssertEqual(fallbackInt, 1)
+
+        fallbackInt = Environment.get("X_____", 9999)
         XCTAssertEqual(fallbackInt, 9999)
 
-        var fallbackBool = Environment.get("X_____", false)
-        XCTAssertEqual(fallbackBool, false)
-
-        fallbackBool = Environment.get("X_____", true)
+        // Int
+        var fallbackBool = Environment.get("VAPOR_EXT_VAR_FALLBACK", false)
         XCTAssertEqual(fallbackBool, true)
 
-        let fallbackString = Environment.get("X_____", "This is a test")
+        fallbackBool = Environment.get("X_____", false)
+        XCTAssertEqual(fallbackBool, false)
+
+        // String
+        var fallbackString = Environment.get("VAPOR_EXT_VAR_FALLBACK", "This is a test")
+        XCTAssertEqual(fallbackString, "1")
+
+        fallbackString = Environment.get("X_____", "This is a test")
         XCTAssertEqual(fallbackString, "This is a test")
     }
 
