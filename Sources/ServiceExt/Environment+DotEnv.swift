@@ -22,15 +22,17 @@ public extension Environment {
             return
         }
 
-        contents.enumerateLines { (line, _) -> Void in
+        let lines = contents.split(whereSeparator: { $0 == "\n" || $0 == "\r\n" })
+
+        for line in lines {
             // ignore comments
             if line.starts(with: "#") {
-                return
+                continue
             }
 
             // ignore lines that appear empty
             if line.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                return
+                continue
             }
 
             // extract key and value which are separated by an equals sign
