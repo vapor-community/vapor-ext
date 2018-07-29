@@ -114,6 +114,10 @@ Please refer to [contributing guidelines](https://github.com/vapor-community/vap
 
 It is always nice to talk with other people using VaporExt and exchange experiences, so come [join our Discord channel](http://vapor.team).
 
+## Credits
+
+This package is developed and maintained by [Gustavo Perdomo](https://github.com/gperdomor) with the collaboration of all vapor community.
+
 ## License
 
 VaporExt is released under an MIT license. See [license](license) for more information.
