@@ -7,6 +7,7 @@ let package = Package(
     products: [
         .library(name: "AsyncExt",targets: ["AsyncExt"]),
         .library(name: "FluentExt",targets: ["FluentExt"]),
+        .library(name: "ServiceExt",targets: ["ServiceExt"]),
         .library(name: "VaporExt",targets: ["VaporExt"]),
     ],
     dependencies: [
@@ -16,6 +17,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/core.git", from: "3.0.0"),
         // 🖋 Swift ORM framework (queries, models, and relations) for building NoSQL and SQL database integrations.
         .package(url: "https://github.com/vapor/fluent.git", from: "3.0.0"),
+        // 📦 Dependency injection / inversion of control framework.
+        .package(url: "https://github.com/vapor/service.git", from: "1.0.0"),
     ],
     targets: [
         // AsyncExt
@@ -25,6 +28,10 @@ let package = Package(
         // FluentExt
         .target(name: "FluentExt", dependencies: ["Fluent", "FluentSQL", "Debugging", "Vapor"]),
         .testTarget(name: "FluentExtTests", dependencies: ["FluentExt"]),
+
+        // ServiceExt
+        .target(name: "ServiceExt", dependencies: ["Service"]),
+        .testTarget(name: "ServiceExtTests", dependencies: ["ServiceExt"]),
 
         .target(name: "VaporExt", dependencies: ["AsyncExt", "FluentExt"]),
         .testTarget(name: "VaporExtTests", dependencies: ["VaporExt"]),
