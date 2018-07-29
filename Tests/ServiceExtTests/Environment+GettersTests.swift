@@ -9,12 +9,6 @@
 import XCTest
 @testable import ServiceExt
 
-#if os(Linux)
-import Glibc
-#else
-import Darwin
-#endif
-
 final class EnvironmentTests: XCTestCase {
     func testGetEnvAsInt() {
         setenv("VAPOR_EXT_VAR_INT", "8080", 1)
@@ -94,36 +88,6 @@ final class EnvironmentTests: XCTestCase {
         XCTAssertEqual(fallbackString, "This is a test")
     }
 
-    func testDotEnv() {
-        let path = "\(FileManager.default.currentDirectoryPath)/test.env"
-        let mockEnv =
-        """
-        # example comment
-
-        SERVICE_EXT_STRING_QUOTED="Hello Vapor Quoted"
-        SERVICE_EXT_STRING=Hello Vapor
-        SERVICE_EXT_INT=107
-
-        SERVICE_EXT_BOOL=true
-        """
-
-        FileManager.default.createFile(atPath: path, contents: mockEnv.data(using: .utf8), attributes: nil)
-
-        Environment.dotenv(filename: "test.env")
-
-        var string: String? = Environment.get("SERVICE_EXT_STRING_QUOTED")
-        XCTAssertEqual(string, "Hello Vapor Quoted")
-
-        string = Environment.get("SERVICE_EXT_STRING")
-        XCTAssertEqual(string, "Hello Vapor")
-
-        let int: Int? = Environment.get("SERVICE_EXT_INT")
-        XCTAssertEqual(int, 107)
-
-        let bool: Bool? = Environment.get("SERVICE_EXT_BOOL")
-        XCTAssertEqual(bool, true)
-    }
-
     func testLinuxTestSuiteIncludesAllTests() throws {
         #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         let thisClass = type(of: self)
@@ -138,7 +102,6 @@ final class EnvironmentTests: XCTestCase {
         ("testLinuxTestSuiteIncludesAllTests", testLinuxTestSuiteIncludesAllTests),
         ("testGetEnvAsInt", testGetEnvAsInt),
         ("testGetEnvAsBool", testGetEnvAsBool),
-        ("testFallback", testFallback),
-        ("testDotEnv", testDotEnv)
+        ("testFallback", testFallback)
     ]
 }

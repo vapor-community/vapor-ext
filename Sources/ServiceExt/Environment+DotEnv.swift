@@ -15,7 +15,12 @@ import Glibc
 import Darwin
 #endif
 
+// MARK: - Methods
+
 public extension Environment {
+    /// Loads environment variables from .env files.
+    ///
+    /// - Parameter filename: name of your env file.
     public static func dotenv(filename: String = ".env") {
         guard let path = getAbsolutePath(relativePath: "/\(filename)"),
               let contents = try? String(contentsOfFile: path, encoding: .utf8) else {
@@ -51,10 +56,10 @@ public extension Environment {
         }
     }
 
+    /// Determine absolute path of the given argument relative to the current directory.
     ///
-    /// Determine absolute path of the given argument relative to the current
-    /// directory
-    ///
+    /// - Parameter relativePath: relative path of the file.
+    /// - Returns: the absolute path if exists.
     private static func getAbsolutePath(relativePath: String) -> String? {
         let fileManager = FileManager.default
         let currentPath = fileManager.currentDirectoryPath

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Vapor Community. All rights reserved.
 //
 
-enum QueryFilterMethod: String {
+internal enum QueryFilterMethod: String {
     case equal = "eq"
     case notEqual = "neq"
     case `in` = "in"
