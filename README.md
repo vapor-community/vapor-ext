@@ -1,3 +1,21 @@
+<p align="center">
+    <a href="https://vapor.codes">
+        <img src="https://img.shields.io/badge/Vapor-3-brightgreen.svg" alt="Vapor Version">
+    </a>
+    <a href="license">
+        <img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
+    </a>
+    <a href="https://circleci.com/gh/vapor-community/vapor-ext">
+        <img src="https://circleci.com/gh/vapor-community/vapor-ext.svg?style=shield" alt="Continuous Integration">
+    </a>
+    <a href="https://codecov.io/gh/vapor-community/vapor-ext">
+      <img src="https://codecov.io/gh/vapor-community/vapor-ext/branch/master/graph/badge.svg" />
+    </a>
+    <a href="https://swift.org">
+        <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
+    </a>
+</p>
+
 # VaporExt
 
 VaporExt is a collection of **Swift extensions**, with handy methods, syntactic sugar, and performance improvements for wide range of Vapor types and classes.
@@ -113,6 +131,10 @@ Please refer to [contributing guidelines](https://github.com/vapor-community/vap
 ## Discord Channel:
 
 It is always nice to talk with other people using VaporExt and exchange experiences, so come [join our Discord channel](http://vapor.team).
+
+## Credits
+
+This package is developed and maintained by [Gustavo Perdomo](https://github.com/gperdomor) with the collaboration of all vapor community.
 
 ## License
 
