@@ -16,32 +16,35 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     ///   - keyPath: the model keypath.
     ///   - queryParam: the sorting parameter name in the query params url.
     ///   - parameter: the parameter name in sorting config.
+    ///   - direction: Default direction to apply if no value is found in url query params.
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func sort<T>(_ keyPath: KeyPath<Result, T>, at queryParam: String, as parameter: String, on req: Request) throws -> Self {
-        guard let sort = req.query[String.self, at: queryParam] else {
-            return self
+    public func sort<T>(_ keyPath: KeyPath<Result, T>, at queryParam: String, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
+        if let sort = req.query[String.self, at: queryParam] {
+            let sortOpts = sort.components(separatedBy: ",")
+
+            for option in sortOpts {
+                let splited = option.components(separatedBy: ":")
+
+                let field = splited[0]
+
+                if field != parameter {
+                    continue
+                }
+
+                let direction = splited.count == 1 ? "asc" : splited[1]
+
+                guard ["asc", "desc"].contains(direction) else {
+                    throw FluentError(identifier: "invalidSortConfiguration", reason: "Invalid sort config for '\(option)'")
+                }
+
+                return self.sort(keyPath, direction == "asc" ? Database.querySortDirectionAscending : Database.querySortDirectionDescending)
+            }
         }
 
-        let sortOpts = sort.components(separatedBy: ",")
-
-        for option in sortOpts {
-            let splited = option.components(separatedBy: ":")
-
-            let field = splited[0]
-
-            if field != parameter {
-                continue
-            }
-
-            let direction = splited.count == 1 ? "asc" : splited[1]
-
-            guard ["asc", "desc"].contains(direction) else {
-                throw FluentError(identifier: "invalidSortConfiguration", reason: "Invalid sort config for '\(option)'")
-            }
-
-            return self.sort(keyPath, direction == "asc" ? Database.querySortDirectionAscending : Database.querySortDirectionDescending)
+        if let direction = direction {
+            return self.sort(keyPath, direction)
         }
 
         return self
@@ -52,10 +55,11 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     /// - Parameters:
     ///   - keyPath: the model keypath.
     ///   - parameter: the parameter name in sorting config.
+    ///   - direction: Default direction to apply if no value is found in url query params.
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, on req: Request) throws -> Self {
-        return try self.sort(keyPath, at: "sort", as: parameter, on: req)
+    public func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
+        return try self.sort(keyPath, at: "sort", as: parameter, default: direction, on: req)
     }
 }

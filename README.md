@@ -73,8 +73,8 @@ The extensions are grouped in 3 modules, `AsyncExt`, `FluentExt` and `ServiceExt
   - `filter(\_ keyPath:, at parameter:, on req:)` to handle automatic filters based in query params
 - New sort methods:
 
-  - `sort(\_ keyPath:, at queryParam:, as parameter:, on req:)` to handle automatic sorting based in query params
-  - `sort(\_ keyPath:, as parameter:, on req:)` to handle automatic sorting based in query params
+  - `sort(\_ keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+  - `sort(\_ keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
 
 #### Query params sintax for filters:
 
@@ -113,7 +113,7 @@ You can set the sorts methods with this format `sort=field:direction,field:direc
 ```swift
 return try User.query(on: req)
             .sort(\User.username, as: "username", on: req)
-            .sort(\User.createdAt, as: "created_at", on: req)
+            .sort(\User.createdAt, as: "created_at", default: .ascending, on: req) // if created_at is not present in the url, then the sort is applied using the default direction
 ```
 
 ### ServiceExt
