@@ -16,8 +16,9 @@ import Darwin
 #endif
 
 final class EnvironmentDotEnvTests: XCTestCase {
-    func testDotEnv() {
-        let path = "\(FileManager.default.currentDirectoryPath)/test.env"
+    let path = "\(DirectoryConfig.detect().workDir)/_____test.env"
+
+    override func setUp() {
         let mockEnv =
         """
         # example comment
@@ -31,8 +32,14 @@ final class EnvironmentDotEnvTests: XCTestCase {
         """
 
         FileManager.default.createFile(atPath: path, contents: mockEnv.data(using: .utf8), attributes: nil)
+    }
 
-        Environment.dotenv(filename: "test.env")
+    override func tearDown() {
+        try? FileManager.default.removeItem(atPath: path)
+    }
+
+    func testDotEnv() {
+        Environment.dotenv(filename: "_____test.env")
 
         var string: String? = Environment.get("SERVICE_EXT_STRING_QUOTED")
         XCTAssertEqual(string, "Hello Vapor Quoted")
