@@ -22,7 +22,7 @@ public extension Environment {
     ///
     /// - Parameter filename: name of your env file.
     public static func dotenv(filename: String = ".env") {
-        guard let path = getAbsolutePath(relativePath: "/\(filename)"),
+        guard let path = getAbsolutePath(for: filename),
               let contents = try? String(contentsOfFile: path, encoding: .utf8) else {
             return
         }
@@ -60,10 +60,10 @@ public extension Environment {
     ///
     /// - Parameter relativePath: relative path of the file.
     /// - Returns: the absolute path if exists.
-    private static func getAbsolutePath(relativePath: String) -> String? {
+    private static func getAbsolutePath(for filename: String) -> String? {
         let fileManager = FileManager.default
-        let currentPath = fileManager.currentDirectoryPath
-        let filePath = currentPath + relativePath
+        let currentPath = DirectoryConfig.detect().workDir.finished(with: "/")
+        let filePath = currentPath + filename
         if fileManager.fileExists(atPath: filePath) {
             return filePath
         } else {
