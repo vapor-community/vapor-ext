@@ -9,3 +9,5 @@
 @_exported import AsyncExt
 @_exported import FluentExt
 @_exported import ServiceExt
+
+@_exported import Vapor

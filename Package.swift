@@ -33,7 +33,7 @@ let package = Package(
         .target(name: "ServiceExt", dependencies: ["Service"]),
         .testTarget(name: "ServiceExtTests", dependencies: ["ServiceExt"]),
 
-        .target(name: "VaporExt", dependencies: ["AsyncExt", "FluentExt"]),
+        .target(name: "VaporExt", dependencies: ["AsyncExt", "FluentExt", "ServiceExt"]),
         .testTarget(name: "VaporExtTests", dependencies: ["VaporExt"]),
     ]
 )
