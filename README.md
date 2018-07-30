@@ -76,7 +76,7 @@ The extensions are grouped in 3 modules, `AsyncExt`, `FluentExt` and `ServiceExt
   - `sort(\_ keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
   - `sort(\_ keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
 
-#### Query params sintax for filters:
+#### Query params syntax for filters:
 
 You can set the filter method with this format `parameter=method:value` and the new filter method will build the filter based on the `method`, example:
 
