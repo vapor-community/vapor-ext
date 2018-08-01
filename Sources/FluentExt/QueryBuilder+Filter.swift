@@ -12,7 +12,7 @@ import FluentSQL
 
 public extension QueryBuilder where Result: Model, Result.Database == Database {
     /// Applies filter criteria over a keypath using criteria configured in a request query params.
-    ///     
+    ///
     ///     If your request user is /users?username=ew:gmail.com
     ///     `\User.query(on: req).filter(\User.username, at: email, on: req)`
     ///     then, the previous code will extract the filter config for the key `email` of your url params
@@ -91,6 +91,83 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
     /// - Returns: Self
     /// - Throws: FluentError
     public func filter(_ keyPath: KeyPath<Result, String>, at parameter: String, on req: Request) throws -> Self {
+        let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
+
+        guard let config = req.query[String.self, at: parameter] else {
+            return self
+        }
+
+        let splited = config.components(separatedBy: ":")
+
+        let method: QueryFilterMethod
+        let value: String
+
+        if splited.count == 1 {
+            method = .equal
+            value = splited[0]
+        } else {
+            guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
+                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+            }
+            method = mth
+            value = splited[1]
+        }
+
+        let multiple = [.in, .notIn].contains(method)
+        var parsed: FilterValue<String, [String]>
+
+        if multiple {
+            let str = value.components(separatedBy: ",").map { "\(parameter)[]=\($0)" }.joined(separator: "&")
+            parsed = try .multiple(decoder.decode(SingleValueDecoder.self, from: str).get(at: [parameter.makeBasicKey()]))
+        } else {
+            let str = "\(parameter)=\(value)"
+            parsed = try .single(decoder.decode(SingleValueDecoder.self, from: str).get(at: [parameter.makeBasicKey()]))
+        }
+
+        switch (method, parsed) {
+        case (.equal, .single(let value)): // Equal
+            return self.filter(keyPath == value)
+        case (.notEqual, .single(let value)): // Not Equal
+            return self.filter(keyPath != value)
+        case (.greaterThan, .single(let value)): // Greater Than
+            return self.filter(keyPath > value)
+        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
+            return self.filter(keyPath >= value)
+        case (.lessThan, .single(let value)): // Less Than
+            return self.filter(keyPath < value)
+        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
+            return self.filter(keyPath <= value)
+        case (.contains, .single(let value)): // Contains
+            return self.filter(keyPath ~~ value)
+        case (.notContains, .single(let value)): // Not Contains
+            return self.filter(keyPath !~~ value)
+        case (.startsWith, .single(let value)): // Start With / Preffix
+            return self.filter(keyPath =~ value)
+        case (.endsWith, .single(let value)): // Ends With / Suffix
+            // return self.filter(keyPath ~= value)
+            return self.filter(.make(keyPath, .like, ["%" + value]))
+        case (.notStartsWith, .single(let value)): // No Start With / Preffix
+            return self.filter(keyPath !=~ value)
+        case (.notEndsWith, .single(let value)): // No Ends With / Suffix
+            return self.filter(keyPath !~= value)
+        case (.in, .multiple(let value)): // In
+            return self.filter(keyPath ~~ value)
+        case (.notIn, .multiple(let value)): // Not In
+            return self.filter(keyPath !~ value)
+        default:
+            throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
+        }
+    }
+
+    /// Applies filter criteria over a keypath using criteria configured in a request query params.
+    ///
+    /// - Parameters:
+    ///   - keyPath: the model keypath
+    ///   - parameter: the parameter name in filter config from request url params.
+    ///   - req: the request.
+    /// - Returns: Self
+    /// - Throws: FluentError
+    public func filter(_ keyPath: KeyPath<Result, String?>, at parameter: String, on req: Request) throws -> Self {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = req.query[String.self, at: parameter] else {
