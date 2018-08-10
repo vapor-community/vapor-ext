@@ -15,10 +15,9 @@ public extension Request {
     ///   - keyPath: the model keypath.
     ///   - queryParam: the sorting parameter name in the query params url.
     ///   - parameter: the parameter name in sorting config.
-    ///   - direction: Default direction to apply if no value is found in url query params.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String, default direction: M.Database.QuerySortDirection? = nil) throws -> M.Database.QuerySort? where M: Model {
+    public func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
         if let sort = self.query[String.self, at: queryParam] {
             let sortOpts = sort.components(separatedBy: ",")
 
@@ -43,11 +42,35 @@ public extension Request {
             }
         }
 
-        if let direction = direction {
-            return M.Database.querySort(M.Database.queryField(.keyPath(keyPath)), direction)
+        return nil
+    }
+
+    /// Build sort criteria over a keypath using criteria configured in a request query params.
+    ///
+    /// - Parameters:
+    ///   - keyPath: the model keypath.
+    ///   - queryParam: the sorting parameter name in the query params url.
+    ///   - parameter: the parameter name in sorting config.
+    ///   - direction: Default direction to apply if no value is found in url query params.
+    /// - Returns: QuerySort criteria
+    /// - Throws: FluentError
+    public func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
+        if let sort = try self.sort(keyPath, at: queryParam, as: parameter) {
+            return sort
         }
 
-        return nil
+        return M.Database.querySort(M.Database.queryField(.keyPath(keyPath)), direction)
+    }
+
+    /// Build sort criteria over a keypath using criteria configured in a request query params.
+    ///
+    /// - Parameters:
+    ///   - keyPath: the model keypath.
+    ///   - parameter: the parameter name in sorting config.
+    /// - Returns: QuerySort criteria
+    /// - Throws: FluentError
+    public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
+        return try self.sort(keyPath, at: "sort", as: parameter)
     }
 
     /// Build sort criteria over a keypath using criteria configured in a request query params.
@@ -58,7 +81,7 @@ public extension Request {
     ///   - direction: Default direction to apply if no value is found in url query params.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String, default direction: M.Database.QuerySortDirection? = nil) throws -> M.Database.QuerySort? where M: Model {
+    public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
         return try self.sort(keyPath, at: "sort", as: parameter, default: direction)
     }
 }

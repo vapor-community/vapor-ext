@@ -8,7 +8,7 @@
 
 import Vapor
 
-public extension Request { //where Result: Model, Result.Database == Database {
+public extension Request {
     /// Build filter criteria over a keypath using criteria configured in a request query params.
     ///
     /// - Parameters:
