@@ -70,11 +70,16 @@ The extensions are grouped in 3 modules, `AsyncExt`, `FluentExt` and `ServiceExt
   - `!=~` for not has prefix comparison
   - `!~~` for not contains comparison
 - New filter methods:
-  - `filter(\_ keyPath:, at parameter:, on req:)` to handle automatic filters based in query params
+  - `filter(keyPath:, at parameter:, on req:)` to handle automatic filters based in query params
 - New sort methods:
-
-  - `sort(\_ keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
-  - `sort(\_ keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+  - `sort(keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+- New Request extensions to build FilterOperator and QuerySort from query params (Usefull if you use a Repository system):
+  - `filter(keyPath:, at parameter:)` to build FilterOperator based in query params
+  - `sort(keyPath:, at queryParam:, as parameter:)` to build QuerySort based in query params
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:)` to build QuerySort based in query params
+  - `sort(keyPath:, as parameter:)` to build QuerySort based in query params
+  - `sort(keyPath:, as parameter:, default direction:)` to build QuerySort based in query params
 
 #### Query params syntax for filters:
 
@@ -104,7 +109,7 @@ return try User.query(on: req)
             .filter(\User.deletedAt, at: "deleted_at", on: req)
 ```
 
-#### Query params sintax for sorting:
+#### Query params syntax for sorting:
 
 You can set the sorts methods with this format `sort=field:direction,field:direction` and the new sort method will build the query based on that configuration, for example
 
@@ -114,6 +119,33 @@ You can set the sorts methods with this format `sort=field:direction,field:direc
 return try User.query(on: req)
             .sort(\User.username, as: "username", on: req)
             .sort(\User.createdAt, as: "created_at", default: .ascending, on: req) // if created_at is not present in the url, then the sort is applied using the default direction
+```
+
+#### Request extensions example:
+
+```swift
+func index(_ req: Request) throws -> Future<[User]> {
+    let repository = try req.make(UserRepository.self)
+
+    let criteria: [FilterOperator<User.Database, User>] = try [
+        req.filter(\User.name, at: "name"),
+        req.filter(\User.username, at: "username"),
+        req.filter(\User.enabled, at: "enabled")
+    ].compactMap { $0 }
+
+    var sort: [User.Database.QuerySort] = try [
+        req.sort(\User.name, as: "name"),
+        req.sort(\User.username, as: "username"),
+        req.sort(\User.createdAt, as: "created_at"),
+    ].compactMap { $0 }
+
+    if sort.isEmpty {
+        let defaultSort = try req.sort(\User.name, as: "name", default: .ascending)
+        sort.append(defaultSort)
+    }
+
+    return repository.findBy(criteria: criteria, orderBy: sort, on: req)
+}
 ```
 
 ### ServiceExt
