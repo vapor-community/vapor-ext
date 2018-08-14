@@ -13,16 +13,16 @@ struct FilterConfig {
     var value: String
 }
 
-internal let QueryParamRegex = "(\(QueryFilterMethod.allCases.map { $0.rawValue }.joined(separator: "|")))?:?(.*)"
+internal let FILTER_CONFIG_REGEX = "(\(QueryFilterMethod.allCases.map { $0.rawValue }.joined(separator: "|")))?:?(.*)"
 
 internal extension String {
     var toFilterConfig: FilterConfig {
-        let result = self.capturedGroups(withRegex: QueryParamRegex)
+        let result = self.capturedGroups(withRegex: FILTER_CONFIG_REGEX)
 
         var method = QueryFilterMethod.equal
 
-        if let rawValue = result[0], let _method = QueryFilterMethod.init(rawValue: rawValue) {
-            method = _method
+        if let rawValue = result[0], let qfm = QueryFilterMethod.init(rawValue: rawValue) {
+            method = qfm
         }
 
         return FilterConfig(method: method, value: result[1] ?? "")

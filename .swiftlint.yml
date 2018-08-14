@@ -20,18 +20,20 @@ line_length: 120
 
 identifier_name:
   excluded:
+    - i
     - id
+    - FILTER_CONFIG_REGEX
 
 closure_end_indentation: error
 
 file_header:
   severity: error
   required_pattern: |
-                    \/\/
-                    \/\/  .*?\.swift
-                    \/\/  (Async|Fluent|Service|Vapor)Ext
-                    \/\/
-                    \/\/  Created by .*? on \d{2}\/\d{2}\/\d{2}\.
-                    \/\/  Copyright © \d{4} Vapor Community\. All rights reserved\.
+    \/\/
+    \/\/  .*?\.swift
+    \/\/  (Async|Fluent|Service|Vapor)Ext
+    \/\/
+    \/\/  Created by .*? on \d{2}\/\d{2}\/\d{2}\.
+    \/\/  Copyright © \d{4} Vapor Community\. All rights reserved\.
 
 reporter: "emoji"
