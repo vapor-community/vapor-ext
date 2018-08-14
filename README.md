@@ -12,7 +12,7 @@
       <img src="https://codecov.io/gh/vapor-community/vapor-ext/branch/master/graph/badge.svg" />
     </a>
     <a href="https://swift.org">
-        <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
+        <img src="http://img.shields.io/badge/swift-4.2-brightgreen.svg" alt="Swift 4.2">
     </a>
 </p>
 
@@ -22,7 +22,7 @@ VaporExt is a collection of **Swift extensions**, with handy methods, syntactic 
 
 ## Requirements:
 
-- Swift 4.1+
+- Swift 4.2+
 
 ## Installation
 
