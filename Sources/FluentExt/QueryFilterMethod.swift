@@ -22,3 +22,28 @@ internal enum QueryFilterMethod: String {
     case contains = "ct"
     case notContains = "nct"
 }
+
+#if swift(>=4.2)
+extension QueryFilterMethod: CaseIterable { }
+#else
+extension QueryFilterMethod {
+    static var allCases: [QueryFilterMethod] {
+        return [
+            .equal,
+            .notEqual,
+            .in,
+            .notIn,
+            .greaterThan,
+            .greaterThanOrEqual,
+            .lessThan,
+            .lessThanOrEqual,
+            .startsWith,
+            .notStartsWith,
+            .endsWith,
+            .notEndsWith,
+            .contains,
+            .notContains
+        ]
+    }
+}
+#endif

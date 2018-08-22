@@ -23,21 +23,10 @@ public extension Request {
             return nil
         }
 
-        let splited = config.components(separatedBy: ":")
+        let filterConfig = config.toFilterConfig
 
-        let method: QueryFilterMethod
-        let value: String
-
-        if splited.count == 1 {
-            method = .equal
-            value = splited[0]
-        } else {
-            guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
-                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
-            }
-            method = mth
-            value = splited[1]
-        }
+        let method = filterConfig.method
+        let value = filterConfig.value
 
         let multiple = [.in, .notIn].contains(method)
         var parsed: FilterValue<T, [T]>
@@ -86,21 +75,10 @@ public extension Request {
             return nil
         }
 
-        let splited = config.components(separatedBy: ":")
+        let filterConfig = config.toFilterConfig
 
-        let method: QueryFilterMethod
-        let value: String
-
-        if splited.count == 1 {
-            method = .equal
-            value = splited[0]
-        } else {
-            guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
-                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
-            }
-            method = mth
-            value = splited[1]
-        }
+        let method = filterConfig.method
+        let value = filterConfig.value
 
         let multiple = [.in, .notIn].contains(method)
         var parsed: FilterValue<String, [String]>
@@ -161,21 +139,10 @@ public extension Request {
             return nil
         }
 
-        let splited = config.components(separatedBy: ":")
+        let filterConfig = config.toFilterConfig
 
-        let method: QueryFilterMethod
-        let value: String
-
-        if splited.count == 1 {
-            method = .equal
-            value = splited[0]
-        } else {
-            guard let mth = QueryFilterMethod(rawValue: splited[0]) else {
-                throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
-            }
-            method = mth
-            value = splited[1]
-        }
+        let method = filterConfig.method
+        let value = filterConfig.value
 
         let multiple = [.in, .notIn].contains(method)
         var parsed: FilterValue<String, [String]>
