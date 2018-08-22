@@ -49,7 +49,7 @@ internal extension String {
         for i in 1...lastRangeIndex {
             let capturedGroupIndex = match.range(at: i)
 
-            let matchedString = capturedGroupIndex.location == NSNotFound ? nil : (self as NSString).substring(with: capturedGroupIndex)
+            let matchedString: String? = capturedGroupIndex.location == NSNotFound ? nil : NSString(string: self).substring(with: capturedGroupIndex)
 
             results.append(matchedString)
         }
