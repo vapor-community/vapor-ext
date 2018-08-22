@@ -77,10 +77,17 @@ workflows:
   tests:
     jobs:
       - swiftlint
-      - linux
-      - linux-release
-      - macos
-      - macos-release
+      # Swift 4.1
+      - linux-4.1
+      - linux-release-4.1
+      - macos-4.1
+      - macos-release-4.1
+
+      # Swift 4.2
+      - linux-4.2
+      - linux-release-4.2
+      - macos-4.2
+      - macos-release-4.2
 
   nightly:
     triggers:
