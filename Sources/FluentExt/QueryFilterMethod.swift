@@ -6,7 +6,7 @@
 //  Copyright © 2018 Vapor Community. All rights reserved.
 //
 
-internal enum QueryFilterMethod: String, CaseIterable {
+internal enum QueryFilterMethod: String {
     case equal = "eq"
     case notEqual = "neq"
     case `in` = "in"
@@ -22,3 +22,28 @@ internal enum QueryFilterMethod: String, CaseIterable {
     case contains = "ct"
     case notContains = "nct"
 }
+
+#if swift(>=4.2)
+extension QueryFilterMethod: CaseIterable { }
+#else
+extension QueryFilterMethod {
+    static var allCases: [QueryFilterMethod] {
+        return [
+            .equal,
+            .notEqual,
+            .in,
+            .notIn,
+            .greaterThan,
+            .greaterThanOrEqual,
+            .lessThan,
+            .lessThanOrEqual,
+            .startsWith,
+            .notStartsWith,
+            .endsWith,
+            .notEndsWith,
+            .contains,
+            .notContains
+        ]
+    }
+}
+#endif
