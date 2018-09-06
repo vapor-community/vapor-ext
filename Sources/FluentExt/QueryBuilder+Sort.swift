@@ -44,7 +44,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
         }
 
         if let direction = direction {
-            return self.sort(keyPath, direction)
+            return sort(keyPath, direction)
         }
 
         return self
@@ -60,6 +60,6 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     /// - Returns: Self
     /// - Throws: FluentError
     public func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
-        return try self.sort(keyPath, at: "sort", as: parameter, default: direction, on: req)
+        return try sort(keyPath, at: "sort", as: parameter, default: direction, on: req)
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import Service
 
 #if os(Linux)
-import Glibc
+    import Glibc
 #else
-import Darwin
+    import Darwin
 #endif
 
 // MARK: - Methods
@@ -23,7 +23,7 @@ public extension Environment {
     /// - Parameter filename: name of your env file.
     public static func dotenv(filename: String = ".env") {
         guard let path = getAbsolutePath(for: filename),
-              let contents = try? String(contentsOfFile: path, encoding: .utf8) else {
+            let contents = try? String(contentsOfFile: path, encoding: .utf8) else {
             return
         }
 

@@ -7,8 +7,8 @@
 //
 
 import Async
-import XCTest
 @testable import AsyncExt
+import XCTest
 
 final class FutureEquatableTests: XCTestCase {
     let worker: Worker = EmbeddedEventLoop()
@@ -49,11 +49,11 @@ final class FutureEquatableTests: XCTestCase {
 
     func testLinuxTestSuiteIncludesAllTests() throws {
         #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        let thisClass = type(of: self)
-        let linuxCount = thisClass.allTests.count
-        let darwinCount = Int(thisClass.defaultTestSuite.testCaseCount)
+            let thisClass = type(of: self)
+            let linuxCount = thisClass.allTests.count
+            let darwinCount = Int(thisClass.defaultTestSuite.testCaseCount)
 
-        XCTAssertEqual(linuxCount, darwinCount, "\(darwinCount - linuxCount) tests are missing from allTests")
+            XCTAssertEqual(linuxCount, darwinCount, "\(darwinCount - linuxCount) tests are missing from allTests")
         #endif
     }
 

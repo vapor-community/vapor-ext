@@ -24,26 +24,26 @@ internal enum QueryFilterMethod: String {
 }
 
 #if swift(>=4.2)
-extension QueryFilterMethod: CaseIterable { }
+    extension QueryFilterMethod: CaseIterable {}
 #else
-extension QueryFilterMethod {
-    static var allCases: [QueryFilterMethod] {
-        return [
-            .equal,
-            .notEqual,
-            .in,
-            .notIn,
-            .greaterThan,
-            .greaterThanOrEqual,
-            .lessThan,
-            .lessThanOrEqual,
-            .startsWith,
-            .notStartsWith,
-            .endsWith,
-            .notEndsWith,
-            .contains,
-            .notContains
-        ]
+    extension QueryFilterMethod {
+        static var allCases: [QueryFilterMethod] {
+            return [
+                .equal,
+                .notEqual,
+                .in,
+                .notIn,
+                .greaterThan,
+                .greaterThanOrEqual,
+                .lessThan,
+                .lessThanOrEqual,
+                .startsWith,
+                .notStartsWith,
+                .endsWith,
+                .notEndsWith,
+                .contains,
+                .notContains,
+            ]
+        }
     }
-}
 #endif

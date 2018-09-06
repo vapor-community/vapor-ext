@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "VaporExt",
     products: [
-        .library(name: "AsyncExt",targets: ["AsyncExt"]),
-        .library(name: "FluentExt",targets: ["FluentExt"]),
-        .library(name: "ServiceExt",targets: ["ServiceExt"]),
-        .library(name: "VaporExt",targets: ["VaporExt"]),
+        .library(name: "AsyncExt", targets: ["AsyncExt"]),
+        .library(name: "FluentExt", targets: ["FluentExt"]),
+        .library(name: "ServiceExt", targets: ["ServiceExt"]),
+        .library(name: "VaporExt", targets: ["VaporExt"]),
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.

@@ -9,9 +9,9 @@
 import Service
 
 #if os(Linux)
-import Glibc
+    import Glibc
 #else
-import Darwin
+    import Darwin
 #endif
 
 // MARK: - Methods
@@ -48,7 +48,7 @@ public extension Environment {
     ///   - fallback: the default value.
     /// - Returns: the environment variable value if exists, otherwise the `fallback` value.
     public static func get(_ key: String, _ fallback: String) -> String {
-        return self.get(key) ?? fallback
+        return get(key) ?? fallback
     }
 
     /// Gets a key from the process environment.

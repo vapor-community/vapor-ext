@@ -6,9 +6,9 @@
 //  Copyright © 2018 Vapor Community. All rights reserved.
 //
 
-import Vapor
 import Fluent
 import FluentSQL
+import Vapor
 
 public extension QueryBuilder where Result: Model, Result.Database == Database {
     /// Applies filter criteria over a keypath using criteria configured in a request query params.
@@ -48,22 +48,22 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
-            return self.filter(keyPath == value)
-        case (.notEqual, .single(let value)): // Not Equal
-            return self.filter(keyPath != value)
-        case (.greaterThan, .single(let value)): // Greater Than
-            return self.filter(keyPath > value)
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
-            return self.filter(keyPath >= value)
-        case (.lessThan, .single(let value)): // Less Than
-            return self.filter(keyPath < value)
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
-            return self.filter(keyPath <= value)
-        case (.in, .multiple(let value)): // In
-            return self.filter(keyPath ~~ value)
-        case (.notIn, .multiple(let value)): // Not In
-            return self.filter(keyPath !~ value)
+        case let (.equal, .single(value)): // Equal
+            return filter(keyPath == value)
+        case let (.notEqual, .single(value)): // Not Equal
+            return filter(keyPath != value)
+        case let (.greaterThan, .single(value)): // Greater Than
+            return filter(keyPath > value)
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
+            return filter(keyPath >= value)
+        case let (.lessThan, .single(value)): // Less Than
+            return filter(keyPath < value)
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
+            return filter(keyPath <= value)
+        case let (.in, .multiple(value)): // In
+            return filter(keyPath ~~ value)
+        case let (.notIn, .multiple(value)): // Not In
+            return filter(keyPath !~ value)
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
         }
@@ -103,35 +103,35 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
-            return self.filter(keyPath == value)
-        case (.notEqual, .single(let value)): // Not Equal
-            return self.filter(keyPath != value)
-        case (.greaterThan, .single(let value)): // Greater Than
-            return self.filter(keyPath > value)
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
-            return self.filter(keyPath >= value)
-        case (.lessThan, .single(let value)): // Less Than
-            return self.filter(keyPath < value)
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
-            return self.filter(keyPath <= value)
-        case (.contains, .single(let value)): // Contains
-            return self.filter(keyPath ~~ value)
-        case (.notContains, .single(let value)): // Not Contains
-            return self.filter(keyPath !~~ value)
-        case (.startsWith, .single(let value)): // Start With / Preffix
-            return self.filter(keyPath =~ value)
-        case (.endsWith, .single(let value)): // Ends With / Suffix
+        case let (.equal, .single(value)): // Equal
+            return filter(keyPath == value)
+        case let (.notEqual, .single(value)): // Not Equal
+            return filter(keyPath != value)
+        case let (.greaterThan, .single(value)): // Greater Than
+            return filter(keyPath > value)
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
+            return filter(keyPath >= value)
+        case let (.lessThan, .single(value)): // Less Than
+            return filter(keyPath < value)
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
+            return filter(keyPath <= value)
+        case let (.contains, .single(value)): // Contains
+            return filter(keyPath ~~ value)
+        case let (.notContains, .single(value)): // Not Contains
+            return filter(keyPath !~~ value)
+        case let (.startsWith, .single(value)): // Start With / Preffix
+            return filter(keyPath =~ value)
+        case let (.endsWith, .single(value)): // Ends With / Suffix
             // return self.filter(keyPath ~= value)
-            return self.filter(.make(keyPath, .like, ["%" + value]))
-        case (.notStartsWith, .single(let value)): // No Start With / Preffix
-            return self.filter(keyPath !=~ value)
-        case (.notEndsWith, .single(let value)): // No Ends With / Suffix
-            return self.filter(keyPath !~= value)
-        case (.in, .multiple(let value)): // In
-            return self.filter(keyPath ~~ value)
-        case (.notIn, .multiple(let value)): // Not In
-            return self.filter(keyPath !~ value)
+            return filter(.make(keyPath, .like, ["%" + value]))
+        case let (.notStartsWith, .single(value)): // No Start With / Preffix
+            return filter(keyPath !=~ value)
+        case let (.notEndsWith, .single(value)): // No Ends With / Suffix
+            return filter(keyPath !~= value)
+        case let (.in, .multiple(value)): // In
+            return filter(keyPath ~~ value)
+        case let (.notIn, .multiple(value)): // Not In
+            return filter(keyPath !~ value)
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
         }
@@ -169,35 +169,35 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
-            return self.filter(keyPath == value)
-        case (.notEqual, .single(let value)): // Not Equal
-            return self.filter(keyPath != value)
-        case (.greaterThan, .single(let value)): // Greater Than
-            return self.filter(keyPath > value)
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
-            return self.filter(keyPath >= value)
-        case (.lessThan, .single(let value)): // Less Than
-            return self.filter(keyPath < value)
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
-            return self.filter(keyPath <= value)
-        case (.contains, .single(let value)): // Contains
-            return self.filter(keyPath ~~ value)
-        case (.notContains, .single(let value)): // Not Contains
-            return self.filter(keyPath !~~ value)
-        case (.startsWith, .single(let value)): // Start With / Preffix
-            return self.filter(keyPath =~ value)
-        case (.endsWith, .single(let value)): // Ends With / Suffix
+        case let (.equal, .single(value)): // Equal
+            return filter(keyPath == value)
+        case let (.notEqual, .single(value)): // Not Equal
+            return filter(keyPath != value)
+        case let (.greaterThan, .single(value)): // Greater Than
+            return filter(keyPath > value)
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
+            return filter(keyPath >= value)
+        case let (.lessThan, .single(value)): // Less Than
+            return filter(keyPath < value)
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
+            return filter(keyPath <= value)
+        case let (.contains, .single(value)): // Contains
+            return filter(keyPath ~~ value)
+        case let (.notContains, .single(value)): // Not Contains
+            return filter(keyPath !~~ value)
+        case let (.startsWith, .single(value)): // Start With / Preffix
+            return filter(keyPath =~ value)
+        case let (.endsWith, .single(value)): // Ends With / Suffix
             // return self.filter(keyPath ~= value)
-            return self.filter(.make(keyPath, .like, ["%" + value]))
-        case (.notStartsWith, .single(let value)): // No Start With / Preffix
-            return self.filter(keyPath !=~ value)
-        case (.notEndsWith, .single(let value)): // No Ends With / Suffix
-            return self.filter(keyPath !~= value)
-        case (.in, .multiple(let value)): // In
-            return self.filter(keyPath ~~ value)
-        case (.notIn, .multiple(let value)): // Not In
-            return self.filter(keyPath !~ value)
+            return filter(.make(keyPath, .like, ["%" + value]))
+        case let (.notStartsWith, .single(value)): // No Start With / Preffix
+            return filter(keyPath !=~ value)
+        case let (.notEndsWith, .single(value)): // No Ends With / Suffix
+            return filter(keyPath !~= value)
+        case let (.in, .multiple(value)): // In
+            return filter(keyPath ~~ value)
+        case let (.notIn, .multiple(value)): // Not In
+            return filter(keyPath !~ value)
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
         }

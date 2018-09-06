@@ -70,7 +70,7 @@ public extension Request {
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
     public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
-        return try self.sort(keyPath, at: "sort", as: parameter)
+        return try sort(keyPath, at: "sort", as: parameter)
     }
 
     /// Build sort criteria over a keypath using criteria configured in a request query params.
@@ -82,6 +82,6 @@ public extension Request {
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
     public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
-        return try self.sort(keyPath, at: "sort", as: parameter, default: direction)
+        return try sort(keyPath, at: "sort", as: parameter, default: direction)
     }
 }

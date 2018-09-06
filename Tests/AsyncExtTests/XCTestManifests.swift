@@ -9,11 +9,11 @@
 import XCTest
 
 #if !os(macOS)
-public func allTests() -> [XCTestCaseEntry] {
-    return [
-        testCase(FutureBoolTests.allTests),
-        testCase(FutureComparableTests.allTests),
-        testCase(FutureEquatableTests.allTests)
-    ]
-}
+    public func allTests() -> [XCTestCaseEntry] {
+        return [
+            testCase(FutureBoolTests.allTests),
+            testCase(FutureComparableTests.allTests),
+            testCase(FutureEquatableTests.allTests)
+        ]
+    }
 #endif
