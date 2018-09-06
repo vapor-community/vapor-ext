@@ -155,6 +155,11 @@ func index(_ req: Request) throws -> Future<[User]> {
   - New generic `get(_ key:)` method to get values as Int and Bool
   - New generic `get(_ key:, _ fallback:)` method to get values as Int and Bool and String, with a fallback values
 
+### VaporExt
+
+- New Future methods:
+  - new `toResponse(on req:, as status:, contentType:)` to transform a Future<Encodable> to a Future<Response>
+
 ## Get involved:
 
 We want your feedback.
