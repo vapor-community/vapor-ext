@@ -21,7 +21,7 @@ public extension Future where T == Bool {
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error in the opposite case.
     public func `true`(or error: Error) throws -> Future<Bool> {
-        return self.map(to: Bool.self) { boolean in
+        return map(to: Bool.self) { boolean in
             if !boolean {
                 throw error
             }
@@ -39,7 +39,7 @@ public extension Future where T == Bool {
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error in the opposite case.
     public func `false`(or error: Error) throws -> Future<Bool> {
-        return self.map(to: Bool.self) { boolean in
+        return map(to: Bool.self) { boolean in
             if boolean {
                 throw error
             }

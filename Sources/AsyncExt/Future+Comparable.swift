@@ -20,8 +20,8 @@ public extension Future where T: Comparable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func greater(than value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current > value
+        return map(to: Bool.self) { current in
+            current > value
         }
     }
 
@@ -49,8 +49,8 @@ public extension Future where T: Comparable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func greaterOrEqual(to value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current >= value
+        return map(to: Bool.self) { current in
+            current >= value
         }
     }
 
@@ -78,8 +78,8 @@ public extension Future where T: Comparable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func less(than value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current < value
+        return map(to: Bool.self) { current in
+            current < value
         }
     }
 
@@ -107,8 +107,8 @@ public extension Future where T: Comparable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func lessOrEqual(to value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current <= value
+        return map(to: Bool.self) { current in
+            current <= value
         }
     }
 

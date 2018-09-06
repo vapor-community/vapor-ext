@@ -17,7 +17,7 @@ public extension Request {
     /// - Returns: FilterOperator
     /// - Throws: FluentError
     public func filter<Result, T>(_ keyPath: KeyPath<Result, T>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where T: Codable, Result: Model {
-        let decoder = try self.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
+        let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
             return nil
@@ -40,21 +40,21 @@ public extension Request {
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
+        case let (.equal, .single(value)): // Equal
             return keyPath == value // self.filter(keyPath == value)
-        case (.notEqual, .single(let value)): // Not Equal
+        case let (.notEqual, .single(value)): // Not Equal
             return keyPath != value // self.filter(keyPath != value)
-        case (.greaterThan, .single(let value)): // Greater Than
+        case let (.greaterThan, .single(value)): // Greater Than
             return keyPath > value // self.filter(keyPath > value)
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
             return keyPath >= value // self.filter(keyPath >= value)
-        case (.lessThan, .single(let value)): // Less Than
+        case let (.lessThan, .single(value)): // Less Than
             return keyPath < value // self.filter(keyPath < value)
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
             return keyPath <= value // self.filter(keyPath <= value)
-        case (.in, .multiple(let value)): // In
+        case let (.in, .multiple(value)): // In
             return keyPath ~~ value // self.filter(keyPath ~~ value)
-        case (.notIn, .multiple(let value)): // Not In
+        case let (.notIn, .multiple(value)): // Not In
             return keyPath !~ value // self.filter(keyPath !~ value)
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
@@ -69,7 +69,7 @@ public extension Request {
     /// - Returns: FilterOperator
     /// - Throws: FluentError
     public func filter<Result>(_ keyPath: KeyPath<Result, String>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
-        let decoder = try self.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
+        let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
             return nil
@@ -92,33 +92,33 @@ public extension Request {
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
+        case let (.equal, .single(value)): // Equal
             return keyPath == value
-        case (.notEqual, .single(let value)): // Not Equal
+        case let (.notEqual, .single(value)): // Not Equal
             return keyPath != value
-        case (.greaterThan, .single(let value)): // Greater Than
+        case let (.greaterThan, .single(value)): // Greater Than
             return keyPath > value
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
             return keyPath >= value
-        case (.lessThan, .single(let value)): // Less Than
+        case let (.lessThan, .single(value)): // Less Than
             return keyPath < value
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
             return keyPath <= value
-        case (.contains, .single(let value)): // Contains
+        case let (.contains, .single(value)): // Contains
             return keyPath ~~ value
-        case (.notContains, .single(let value)): // Not Contains
+        case let (.notContains, .single(value)): // Not Contains
             return keyPath !~~ value
-        case (.startsWith, .single(let value)): // Start With / Preffix
+        case let (.startsWith, .single(value)): // Start With / Preffix
             return keyPath =~ value
-        case (.endsWith, .single(let value)): // Ends With / Suffix
+        case let (.endsWith, .single(value)): // Ends With / Suffix
             return keyPath ~= value
-        case (.notStartsWith, .single(let value)): // No Start With / Preffix
+        case let (.notStartsWith, .single(value)): // No Start With / Preffix
             return keyPath !=~ value
-        case (.notEndsWith, .single(let value)): // No Ends With / Suffix
+        case let (.notEndsWith, .single(value)): // No Ends With / Suffix
             return keyPath !~= value
-        case (.in, .multiple(let value)): // In
+        case let (.in, .multiple(value)): // In
             return keyPath ~~ value
-        case (.notIn, .multiple(let value)): // Not In
+        case let (.notIn, .multiple(value)): // Not In
             return keyPath !~ value
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")
@@ -132,8 +132,8 @@ public extension Request {
     ///   - parameter: the parameter name in filter config from request url params.
     /// - Returns: FilterOperator
     /// - Throws: FluentError
-    public func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String, on req: Request) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
-        let decoder = try self.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
+    public func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String, on _: Request) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
+        let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
             return nil
@@ -156,33 +156,33 @@ public extension Request {
         }
 
         switch (method, parsed) {
-        case (.equal, .single(let value)): // Equal
+        case let (.equal, .single(value)): // Equal
             return keyPath == value
-        case (.notEqual, .single(let value)): // Not Equal
+        case let (.notEqual, .single(value)): // Not Equal
             return keyPath != value
-        case (.greaterThan, .single(let value)): // Greater Than
+        case let (.greaterThan, .single(value)): // Greater Than
             return keyPath > value
-        case (.greaterThanOrEqual, .single(let value)): // Greater Than Or Equal
+        case let (.greaterThanOrEqual, .single(value)): // Greater Than Or Equal
             return keyPath >= value
-        case (.lessThan, .single(let value)): // Less Than
+        case let (.lessThan, .single(value)): // Less Than
             return keyPath < value
-        case (.lessThanOrEqual, .single(let value)): // Less Than Or Equal
+        case let (.lessThanOrEqual, .single(value)): // Less Than Or Equal
             return keyPath <= value
-        case (.contains, .single(let value)): // Contains
+        case let (.contains, .single(value)): // Contains
             return keyPath ~~ value
-        case (.notContains, .single(let value)): // Not Contains
+        case let (.notContains, .single(value)): // Not Contains
             return keyPath !~~ value
-        case (.startsWith, .single(let value)): // Start With / Preffix
+        case let (.startsWith, .single(value)): // Start With / Preffix
             return keyPath =~ value
-        case (.endsWith, .single(let value)): // Ends With / Suffix
+        case let (.endsWith, .single(value)): // Ends With / Suffix
             return keyPath ~= value
-        case (.notStartsWith, .single(let value)): // No Start With / Preffix
+        case let (.notStartsWith, .single(value)): // No Start With / Preffix
             return keyPath !=~ value
-        case (.notEndsWith, .single(let value)): // No Ends With / Suffix
+        case let (.notEndsWith, .single(value)): // No Ends With / Suffix
             return keyPath !~= value
-        case (.in, .multiple(let value)): // In
+        case let (.in, .multiple(value)): // In
             return keyPath ~~ value
-        case (.notIn, .multiple(let value)): // Not In
+        case let (.notIn, .multiple(value)): // Not In
             return keyPath !~ value
         default:
             throw FluentError(identifier: "invalidFilterConfiguration", reason: "Invalid filter config for '\(config)'")

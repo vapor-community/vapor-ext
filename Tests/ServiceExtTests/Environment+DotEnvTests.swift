@@ -6,13 +6,13 @@
 //  Copyright © 2018 Vapor Community. All rights reserved.
 //
 
-import XCTest
 @testable import ServiceExt
+import XCTest
 
 #if os(Linux)
-import Glibc
+    import Glibc
 #else
-import Darwin
+    import Darwin
 #endif
 
 final class EnvironmentDotEnvTests: XCTestCase {
@@ -20,16 +20,16 @@ final class EnvironmentDotEnvTests: XCTestCase {
 
     override func setUp() {
         let mockEnv =
-        """
-        # example comment
+            """
+            # example comment
 
-        SERVICE_EXT_STRING_QUOTED="Hello Vapor Quoted"
-        SERVICE_EXT_STRING_QUOTED_2=Hello "Vapor"
-        SERVICE_EXT_STRING=Hello Vapor
-        SERVICE_EXT_INT=107
+            SERVICE_EXT_STRING_QUOTED="Hello Vapor Quoted"
+            SERVICE_EXT_STRING_QUOTED_2=Hello "Vapor"
+            SERVICE_EXT_STRING=Hello Vapor
+            SERVICE_EXT_INT=107
 
-        SERVICE_EXT_BOOL=true
-        """
+            SERVICE_EXT_BOOL=true
+            """
 
         FileManager.default.createFile(atPath: path, contents: mockEnv.data(using: .utf8), attributes: nil)
     }
@@ -59,11 +59,11 @@ final class EnvironmentDotEnvTests: XCTestCase {
 
     func testLinuxTestSuiteIncludesAllTests() throws {
         #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        let thisClass = type(of: self)
-        let linuxCount = thisClass.allTests.count
-        let darwinCount = Int(thisClass.defaultTestSuite.testCaseCount)
+            let thisClass = type(of: self)
+            let linuxCount = thisClass.allTests.count
+            let darwinCount = Int(thisClass.defaultTestSuite.testCaseCount)
 
-        XCTAssertEqual(linuxCount, darwinCount, "\(darwinCount - linuxCount) tests are missing from allTests")
+            XCTAssertEqual(linuxCount, darwinCount, "\(darwinCount - linuxCount) tests are missing from allTests")
         #endif
     }
 

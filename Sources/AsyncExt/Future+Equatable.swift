@@ -20,8 +20,8 @@ public extension Future where T: Equatable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func equal(to value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current == value
+        return map(to: Bool.self) { current in
+            current == value
         }
     }
 
@@ -37,8 +37,8 @@ public extension Future where T: Equatable {
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if values are not equals.
     public func equal(to value: T, or error: Error) throws -> Future<Bool> {
-        return try self.map(to: Bool.self) { current in
-            return current == value
+        return try map(to: Bool.self) { current in
+            current == value
         }.true(or: error)
     }
 
@@ -51,8 +51,8 @@ public extension Future where T: Equatable {
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
     public func notEqual(to value: T) -> Future<Bool> {
-        return self.map(to: Bool.self) { current in
-            return current != value
+        return map(to: Bool.self) { current in
+            current != value
         }
     }
 
@@ -68,8 +68,8 @@ public extension Future where T: Equatable {
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if values are not equals.
     public func notEqual(to value: T, or error: Error) throws -> Future<Bool> {
-        return try self.map(to: Bool.self) { current in
-            return current != value
+        return try map(to: Bool.self) { current in
+            current != value
         }.true(or: error)
     }
 }

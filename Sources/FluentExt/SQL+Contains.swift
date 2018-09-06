@@ -15,6 +15,7 @@ public func !~= <Result, D>(lhs: KeyPath<Result, String>, rhs: String) -> Filter
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {
     return .make(lhs, .notLike, ["%" + rhs])
 }
+
 /// Not has suffix
 public func !~= <Result, D>(lhs: KeyPath<Result, String?>, rhs: String) -> FilterOperator<D, Result>
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {
@@ -27,6 +28,7 @@ public func !=~ <Result, D>(lhs: KeyPath<Result, String>, rhs: String) -> Filter
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {
     return .make(lhs, .notLike, [rhs + "%"])
 }
+
 /// Not has prefix.
 public func !=~ <Result, D>(lhs: KeyPath<Result, String?>, rhs: String) -> FilterOperator<D, Result>
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {
@@ -39,6 +41,7 @@ public func !~~ <Result, D>(lhs: KeyPath<Result, String>, rhs: String) -> Filter
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {
     return .make(lhs, .notLike, ["%" + rhs + "%"])
 }
+
 /// Not contains.
 public func !~~ <Result, D>(lhs: KeyPath<Result, String?>, rhs: String) -> FilterOperator<D, Result>
     where D: QuerySupporting, D.QueryFilterMethod: SQLBinaryOperator {

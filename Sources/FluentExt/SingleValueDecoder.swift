@@ -29,9 +29,9 @@ internal struct SingleValueDecoder: Decodable {
             switch keys.count {
             case 0:
                 switch state {
-                case .keyed(let keyed):
+                case let .keyed(keyed):
                     return try keyed.decode(D.self, forKey: key)
-                case .unkeyed(var unkeyed):
+                case var .unkeyed(unkeyed):
                     return try unkeyed.nestedContainer(keyedBy: BasicKey.self)
                         .decode(D.self, forKey: key)
                 }
@@ -39,18 +39,18 @@ internal struct SingleValueDecoder: Decodable {
                 let next = keys.last!
                 if let index = next.intValue {
                     switch state {
-                    case .keyed(let keyed):
+                    case let .keyed(keyed):
                         var new = try keyed.nestedUnkeyedContainer(forKey: key)
                         state = try .unkeyed(new.skip(to: index))
-                    case .unkeyed(var unkeyed):
+                    case var .unkeyed(unkeyed):
                         var new = try unkeyed.nestedUnkeyedContainer()
                         state = try .unkeyed(new.skip(to: index))
                     }
                 } else {
                     switch state {
-                    case .keyed(let keyed):
+                    case let .keyed(keyed):
                         state = try .keyed(keyed.nestedContainer(keyedBy: BasicKey.self, forKey: key))
-                    case .unkeyed(var unkeyed):
+                    case var .unkeyed(unkeyed):
                         state = try .keyed(unkeyed.nestedContainer(keyedBy: BasicKey.self))
                     }
                 }
@@ -68,7 +68,7 @@ private enum ContainerState {
 
 private extension UnkeyedDecodingContainer {
     mutating func skip(to count: Int) throws -> UnkeyedDecodingContainer {
-        for _ in 0..<count {
+        for _ in 0 ..< count {
             _ = try nestedContainer(keyedBy: BasicKey.self)
         }
         return self
