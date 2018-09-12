@@ -132,7 +132,7 @@ public extension Request {
     ///   - parameter: the parameter name in filter config from request url params.
     /// - Returns: FilterOperator
     /// - Throws: FluentError
-    public func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String, on _: Request) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
+    public func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
         let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
