@@ -16,9 +16,9 @@ public extension Future where T: Encodable {
     /// - Returns: A Future<Response> with the encodable data
     /// - Throws: Errors errors during encoding
     public func toResponse(on req: Request, as status: HTTPStatus, contentType: MediaType = .json) throws -> Future<Response> {
-        return map(to: Response.self) { tenant in
-            let response = req.makeResponse()
-            try response.content.encode(tenant, as: contentType)
+        return map(to: Response.self) { encodable in
+            let response = req.response()
+            try response.content.encode(encodable, as: contentType)
             response.http.status = status
 
             return response
