@@ -1,3 +1,11 @@
+//
+//  Model+Query.swift
+//  FluentExt
+//
+//  Created by Gustavo Perdomo on 09/20/18.
+//  Copyright © 2018 Vapor Community. All rights reserved.
+//
+
 import Fluent
 import Vapor
 
