@@ -62,4 +62,16 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     public func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
         return try sort(keyPath, at: "sort", as: parameter, default: direction, on: req)
     }
+
+    /// Applies sort criteria over a keypath using criteria configured in a request query params
+    ///
+    /// - Parameter sorts: Some `QuerySort`s to be applied.
+    /// - Returns: Self
+    public func sort(by sorts: [Database.QuerySort]? = nil) -> Self {
+        sorts?.forEach { sort in
+            Database.querySortApply(sort, to: &query)
+        }
+
+        return self
+    }
 }
