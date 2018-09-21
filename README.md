@@ -12,7 +12,7 @@
       <img src="https://codecov.io/gh/vapor-community/vapor-ext/branch/master/graph/badge.svg" />
     </a>
     <a href="https://swift.org">
-        <img src="http://img.shields.io/badge/swift-4.2-brightgreen.svg" alt="Swift 4.1">
+        <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
     </a>
 </p>
 
@@ -65,21 +65,29 @@ The extensions are grouped in 3 modules, `AsyncExt`, `FluentExt` and `ServiceExt
 
 ### FluentExt
 
+- New Model functions:
+  - `query(by:, on:, withSoftDeleted:)` to create a query for the model and apply a filter of criteria.
+  - `findAll(sortBy:, on:, withSoftDeleted:)` to find all models and apply some sorting criteria.
+  - `find(by:, sortBy:, on:, withSoftDeleted:)` to find models and apply some filters and sorting criteria.
+  - `findOne(by:, on:, withSoftDeleted:)` to find first model that matches the filters criteria.
+  - `count(on:, withSoftDeleted:)` to count the number of registers of the model.
+  - `count(by:, on:, withSoftDeleted:)` to count the number of registers of the model that matches some criteria.
 - New Binary operators:
-  - `!~=` for not has suffix comparison
-  - `!=~` for not has prefix comparison
-  - `!~~` for not contains comparison
+  - `!~=` for not has suffix comparison.
+  - `!=~` for not has prefix comparison.
+  - `!~~` for not contains comparison.
 - New filter methods:
-  - `filter(keyPath:, at parameter:, on req:)` to handle automatic filters based in query params
+  - `filter(keyPath:, at parameter:, on req:)` to handle automatic filters based in query params.
 - New sort methods:
-  - `sort(keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
-  - `sort(keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params.
+  - `sort(keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params.
+  - `sort(by:)` to apply some sorting criteria.
 - New Request extensions to build FilterOperator and QuerySort from query params (Usefull if you use a Repository system):
-  - `filter(keyPath:, at parameter:)` to build FilterOperator based in query params
-  - `sort(keyPath:, at queryParam:, as parameter:)` to build QuerySort based in query params
-  - `sort(keyPath:, at queryParam:, as parameter:, default direction:)` to build QuerySort based in query params
-  - `sort(keyPath:, as parameter:)` to build QuerySort based in query params
-  - `sort(keyPath:, as parameter:, default direction:)` to build QuerySort based in query params
+  - `filter(keyPath:, at parameter:)` to build FilterOperator based in query params.
+  - `sort(keyPath:, at queryParam:, as parameter:)` to build QuerySort based in query params.
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:)` to build QuerySort based in query params.
+  - `sort(keyPath:, as parameter:)` to build QuerySort based in query params.
+  - `sort(keyPath:, as parameter:, default direction:)` to build QuerySort based in query params.
 
 #### Query params syntax for filters:
 
