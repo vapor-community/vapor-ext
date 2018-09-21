@@ -73,20 +73,21 @@ The extensions are grouped in 3 modules, `AsyncExt`, `FluentExt` and `ServiceExt
   - `count(on:, withSoftDeleted:)` to count the number of registers of the model.
   - `count(by:, on:, withSoftDeleted:)` to count the number of registers of the model that matches some criteria.
 - New Binary operators:
-  - `!~=` for not has suffix comparison
-  - `!=~` for not has prefix comparison
-  - `!~~` for not contains comparison
+  - `!~=` for not has suffix comparison.
+  - `!=~` for not has prefix comparison.
+  - `!~~` for not contains comparison.
 - New filter methods:
-  - `filter(keyPath:, at parameter:, on req:)` to handle automatic filters based in query params
+  - `filter(keyPath:, at parameter:, on req:)` to handle automatic filters based in query params.
 - New sort methods:
-  - `sort(keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
-  - `sort(keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params.
+  - `sort(keyPath:, as parameter:, default direction:, on req:)` to handle automatic sorting based in query params.
+  - `sort(by:)` to apply some sorting criteria.
 - New Request extensions to build FilterOperator and QuerySort from query params (Usefull if you use a Repository system):
-  - `filter(keyPath:, at parameter:)` to build FilterOperator based in query params
-  - `sort(keyPath:, at queryParam:, as parameter:)` to build QuerySort based in query params
-  - `sort(keyPath:, at queryParam:, as parameter:, default direction:)` to build QuerySort based in query params
-  - `sort(keyPath:, as parameter:)` to build QuerySort based in query params
-  - `sort(keyPath:, as parameter:, default direction:)` to build QuerySort based in query params
+  - `filter(keyPath:, at parameter:)` to build FilterOperator based in query params.
+  - `sort(keyPath:, at queryParam:, as parameter:)` to build QuerySort based in query params.
+  - `sort(keyPath:, at queryParam:, as parameter:, default direction:)` to build QuerySort based in query params.
+  - `sort(keyPath:, as parameter:)` to build QuerySort based in query params.
+  - `sort(keyPath:, as parameter:, default direction:)` to build QuerySort based in query params.
 
 #### Query params syntax for filters:
 
