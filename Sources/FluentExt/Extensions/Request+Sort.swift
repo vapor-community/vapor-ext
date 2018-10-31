@@ -36,7 +36,7 @@ public extension Request {
                     throw FluentError(identifier: "invalidSortConfiguration", reason: "Invalid sort config for '\(option)'")
                 }
 
-                let dir = direction == "asc" ? M.Database.querySortDirectionAscending: M.Database.querySortDirectionDescending
+                let dir = direction == "asc" ? M.Database.querySortDirectionAscending : M.Database.querySortDirectionDescending
 
                 return M.Database.querySort(M.Database.queryField(.keyPath(keyPath)), dir)
             }
