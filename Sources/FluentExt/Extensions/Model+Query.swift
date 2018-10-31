@@ -37,7 +37,7 @@ extension Model where Database: QuerySupporting {
     public static func findAll(sortBy: [Self.Database.QuerySort]? = nil, on conn: DatabaseConnectable, withSoftDeleted: Bool = false) -> Future<[Self]> {
         return Self.findAll(as: Self.self, sortBy: sortBy, on: conn, withSoftDeleted: withSoftDeleted)
     }
-    
+
     /// Collects all the results of this model type into an array.
     ///
     /// - Parameters:
@@ -46,8 +46,7 @@ extension Model where Database: QuerySupporting {
     ///   - conn: Something `DatabaseConnectable` to create the `QueryBuilder` on.
     ///   - withSoftDeleted: If `true`, soft-deleted models will be included in the results. Defaults to `false`.
     /// - Returns: A `Future` containing the results.
-    public static func findAll<M>(as:
-        M.Type, sortBy: [Self.Database.QuerySort]? = nil, on conn: DatabaseConnectable, withSoftDeleted: Bool = false) -> Future<[M]> where M: Model {
+    public static func findAll<M>(as: M.Type, sortBy: [Self.Database.QuerySort]? = nil, on conn: DatabaseConnectable, withSoftDeleted: Bool = false) -> Future<[M]> where M: Model {
         return Self
             .query(on: conn, withSoftDeleted: withSoftDeleted)
             .sort(by: sortBy)
@@ -66,7 +65,7 @@ extension Model where Database: QuerySupporting {
     public static func find(by criteria: [FilterOperator<Self.Database, Self>] = [], sortBy: [Self.Database.QuerySort]? = nil, on conn: DatabaseConnectable, withSoftDeleted: Bool = false) -> Future<[Self]> {
         return Self.find(as: Self.self, by: criteria, sortBy: sortBy, on: conn, withSoftDeleted: withSoftDeleted)
     }
-    
+
     /// Collects all the results of this model type that matches with filters criteria, into an array.
     ///
     /// - Parameters:
@@ -94,7 +93,7 @@ extension Model where Database: QuerySupporting {
     public static func findOne(by criteria: [FilterOperator<Self.Database, Self>], on conn: DatabaseConnectable, withSoftDeleted: Bool = false) -> Future<Self?> {
         return Self.findOne(as: Self.self, by: criteria, on: conn, withSoftDeleted: withSoftDeleted)
     }
-    
+
     /// Search the first model of this type, that matches the filters criteria.
     ///
     /// - Parameters:
