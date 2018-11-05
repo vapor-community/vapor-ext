@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         // AsyncExt
-        .target(name: "AsyncExt", dependencies: ["Async"]),
+        .target(name: "AsyncExt", dependencies: ["Async", "Core"]),
         .testTarget(name: "AsyncExtTests", dependencies: ["AsyncExt"]),
 
         // FluentExt
