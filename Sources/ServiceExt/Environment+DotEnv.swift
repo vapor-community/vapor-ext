@@ -52,6 +52,14 @@ public extension Environment {
                 value.remove(at: value.index(before: value.endIndex))
                 value = value.replacingOccurrences(of: "\\\"", with: "\"")
             }
+            
+            // remove surrounding single quotes from value & convert remove escape character before any embedded quotes
+            if value[value.startIndex] == "'" && value[value.index(before: value.endIndex)] == "'" {
+                value.remove(at: value.startIndex)
+                value.remove(at: value.index(before: value.endIndex))
+                value = value.replacingOccurrences(of: "'", with: "'")
+            }
+            
             setenv(key, value, 1)
         }
     }
