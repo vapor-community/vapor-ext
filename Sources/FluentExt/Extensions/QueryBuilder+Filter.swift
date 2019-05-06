@@ -24,7 +24,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func filter<T>(_ keyPath: KeyPath<Result, T>, at parameter: String, on req: Request) throws -> Self where T: Codable {
+    func filter<T>(_ keyPath: KeyPath<Result, T>, at parameter: String, on req: Request) throws -> Self where T: Codable {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = req.query[String.self, at: parameter] else {
@@ -79,7 +79,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func filter(_ keyPath: KeyPath<Result, String>, at parameter: String, on req: Request) throws -> Self {
+    func filter(_ keyPath: KeyPath<Result, String>, at parameter: String, on req: Request) throws -> Self {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = req.query[String.self, at: parameter] else {
@@ -145,7 +145,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database, 
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func filter(_ keyPath: KeyPath<Result, String?>, at parameter: String, on req: Request) throws -> Self {
+    func filter(_ keyPath: KeyPath<Result, String?>, at parameter: String, on req: Request) throws -> Self {
         let decoder = try req.make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = req.query[String.self, at: parameter] else {

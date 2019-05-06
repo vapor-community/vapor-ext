@@ -17,7 +17,7 @@ public extension Request {
     ///   - parameter: the parameter name in sorting config.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
+    func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
         if let sort = self.query[String.self, at: queryParam] {
             let sortOpts = sort.components(separatedBy: ",")
 
@@ -54,7 +54,7 @@ public extension Request {
     ///   - direction: Default direction to apply if no value is found in url query params.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
+    func sort<M, T>(_ keyPath: KeyPath<M, T>, at queryParam: String, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
         if let sort = try self.sort(keyPath, at: queryParam, as: parameter) {
             return sort
         }
@@ -69,7 +69,7 @@ public extension Request {
     ///   - parameter: the parameter name in sorting config.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
+    func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String) throws -> M.Database.QuerySort? where M: Model {
         return try sort(keyPath, at: "sort", as: parameter)
     }
 
@@ -81,7 +81,7 @@ public extension Request {
     ///   - direction: Default direction to apply if no value is found in url query params.
     /// - Returns: QuerySort criteria
     /// - Throws: FluentError
-    public func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
+    func sort<M, T>(_ keyPath: KeyPath<M, T>, as parameter: String, default direction: M.Database.QuerySortDirection) throws -> M.Database.QuerySort where M: Model {
         return try sort(keyPath, at: "sort", as: parameter, default: direction)
     }
 }

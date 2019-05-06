@@ -16,7 +16,7 @@ public extension Request {
     ///   - parameter: the parameter name in filter config from request url params.
     /// - Returns: FilterOperator
     /// - Throws: FluentError
-    public func filter<Result, T>(_ keyPath: KeyPath<Result, T>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where T: Codable, Result: Model {
+    func filter<Result, T>(_ keyPath: KeyPath<Result, T>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where T: Codable, Result: Model {
         let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
@@ -68,7 +68,7 @@ public extension Request {
     ///   - parameter: the parameter name in filter config from request url params.
     /// - Returns: FilterOperator
     /// - Throws: FluentError
-    public func filter<Result>(_ keyPath: KeyPath<Result, String>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
+    func filter<Result>(_ keyPath: KeyPath<Result, String>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
         let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
@@ -132,7 +132,7 @@ public extension Request {
     ///   - parameter: the parameter name in filter config from request url params.
     /// - Returns: FilterOperator
     /// - Throws: FluentError
-    public func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
+    func filter<Result>(_ keyPath: KeyPath<Result, String?>, at parameter: String) throws -> FilterOperator<Result.Database, Result>? where Result: Model, Result.Database.QueryFilterMethod: SQLBinaryOperator {
         let decoder = try make(ContentCoders.self).requireDataDecoder(for: .urlEncodedForm)
 
         guard let config = self.query[String.self, at: parameter] else {
