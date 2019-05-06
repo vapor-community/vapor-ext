@@ -20,7 +20,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func sort<T>(_ keyPath: KeyPath<Result, T>, at queryParam: String, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
+    func sort<T>(_ keyPath: KeyPath<Result, T>, at queryParam: String, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
         if let sort = req.query[String.self, at: queryParam] {
             let sortOpts = sort.components(separatedBy: ",")
 
@@ -59,7 +59,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     ///   - req: the request.
     /// - Returns: Self
     /// - Throws: FluentError
-    public func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
+    func sort<T>(_ keyPath: KeyPath<Result, T>, as parameter: String, default direction: Database.QuerySortDirection? = nil, on req: Request) throws -> Self {
         return try sort(keyPath, at: "sort", as: parameter, default: direction, on: req)
     }
 
@@ -67,7 +67,7 @@ public extension QueryBuilder where Result: Model, Result.Database == Database {
     ///
     /// - Parameter sorts: Some `QuerySort`s to be applied.
     /// - Returns: Self
-    public func sort(by sorts: [Database.QuerySort]? = nil) -> Self {
+    func sort(by sorts: [Database.QuerySort]? = nil) -> Self {
         sorts?.forEach { sort in
             Database.querySortApply(sort, to: &query)
         }

@@ -19,7 +19,7 @@ public extension Future where T: Comparable {
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
-    public func greater(than value: T) -> Future<Bool> {
+    func greater(than value: T) -> Future<Bool> {
         return map(to: Bool.self) { current in
             current > value
         }
@@ -36,7 +36,7 @@ public extension Future where T: Comparable {
     ///   - error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if the current value is not greater than the passed value.
-    public func greater(than value: T, or error: Error) throws -> Future<Bool> {
+    func greater(than value: T, or error: Error) throws -> Future<Bool> {
         return try greater(than: value).true(or: error)
     }
 
@@ -48,7 +48,7 @@ public extension Future where T: Comparable {
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
-    public func greaterOrEqual(to value: T) -> Future<Bool> {
+    func greaterOrEqual(to value: T) -> Future<Bool> {
         return map(to: Bool.self) { current in
             current >= value
         }
@@ -65,7 +65,7 @@ public extension Future where T: Comparable {
     ///   - error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if the current value is not greater or equal to the passed value.
-    public func greaterOrEqual(to value: T, or error: Error) throws -> Future<Bool> {
+    func greaterOrEqual(to value: T, or error: Error) throws -> Future<Bool> {
         return try greaterOrEqual(to: value).true(or: error)
     }
 
@@ -77,7 +77,7 @@ public extension Future where T: Comparable {
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
-    public func less(than value: T) -> Future<Bool> {
+    func less(than value: T) -> Future<Bool> {
         return map(to: Bool.self) { current in
             current < value
         }
@@ -94,7 +94,7 @@ public extension Future where T: Comparable {
     ///   - error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if the current value is not less than the passed value.
-    public func less(than value: T, or error: Error) throws -> Future<Bool> {
+    func less(than value: T, or error: Error) throws -> Future<Bool> {
         return try less(than: value).true(or: error)
     }
 
@@ -106,7 +106,7 @@ public extension Future where T: Comparable {
     ///
     /// - Parameter value: The value to compare.
     /// - Returns: The result of the comparison wrapped in a Future.
-    public func lessOrEqual(to value: T) -> Future<Bool> {
+    func lessOrEqual(to value: T) -> Future<Bool> {
         return map(to: Bool.self) { current in
             current <= value
         }
@@ -123,7 +123,7 @@ public extension Future where T: Comparable {
     ///   - error: The error to be thrown.
     /// - Returns: The result of the comparison wrapped in a Future.
     /// - Throws: Throws the passed error if the current value is not less or equal to the passed value.
-    public func lessOrEqual(to value: T, or error: Error) throws -> Future<Bool> {
+    func lessOrEqual(to value: T, or error: Error) throws -> Future<Bool> {
         return try lessOrEqual(to: value).true(or: error)
     }
 }

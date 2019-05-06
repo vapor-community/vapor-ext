@@ -21,7 +21,7 @@ public extension Environment {
     ///
     /// - Parameter key: the environment variable name.
     /// - Returns: the environment variable value if exists.
-    public static func get(_ key: String) -> Int? {
+    static func get(_ key: String) -> Int? {
         if let value: String = self.get(key), let parsed = Int(value) {
             return parsed
         }
@@ -33,7 +33,7 @@ public extension Environment {
     ///
     /// - Parameter key: the environment variable name.
     /// - Returns: the environment variable value if exists.
-    public static func get(_ key: String) -> Bool? {
+    static func get(_ key: String) -> Bool? {
         if let value: String = self.get(key), let parsed = value.lowercased().bool {
             return parsed
         }
@@ -47,7 +47,7 @@ public extension Environment {
     ///   - key: the environment variable name.
     ///   - fallback: the default value.
     /// - Returns: the environment variable value if exists, otherwise the `fallback` value.
-    public static func get(_ key: String, _ fallback: String) -> String {
+    static func get(_ key: String, _ fallback: String) -> String {
         return get(key) ?? fallback
     }
 
@@ -57,7 +57,7 @@ public extension Environment {
     ///   - key: the environment variable name.
     ///   - fallback: the default value.
     /// - Returns: the environment variable value if exists, otherwise the `fallback` value.
-    public static func get(_ key: String, _ fallback: Int) -> Int {
+    static func get(_ key: String, _ fallback: Int) -> Int {
         guard let value: Int = self.get(key) else {
             return fallback
         }
@@ -71,7 +71,7 @@ public extension Environment {
     ///   - key: the environment variable name.
     ///   - fallback: the default value.
     /// - Returns: the environment variable value if exists, otherwise the `fallback` value.
-    public static func get(_ key: String, _ fallback: Bool) -> Bool {
+    static func get(_ key: String, _ fallback: Bool) -> Bool {
         guard let value: Bool = self.get(key) else {
             return fallback
         }

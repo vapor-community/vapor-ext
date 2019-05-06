@@ -10,7 +10,7 @@ import Async
 import Core
 
 public extension Future where Expectation: OptionalType {
-    public func `nil`(or error: @autoclosure @escaping () -> Error) -> Future<Expectation.WrappedType?> {
+    func `nil`(or error: @autoclosure @escaping () -> Error) -> Future<Expectation.WrappedType?> {
         return map { optional in
             if let _ = optional.wrapped {
                 throw error()
@@ -20,7 +20,7 @@ public extension Future where Expectation: OptionalType {
         }
     }
 
-    public func `nil`() -> Future<Bool> {
+    func `nil`() -> Future<Bool> {
         return map { optional in
             optional.wrapped == nil
         }
